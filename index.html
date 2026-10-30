@@ -1,0 +1,596 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pallickal Grama Panchayat | Interactive Map Platform</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f4f8f5;
+    color: #263b32;
+    line-height: 1.6;
+}
+
+/* Navigation */
+nav {
+    background: #075b43;
+    padding: 16px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav h2 {
+    color: white;
+    font-size: 22px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+nav ul li a:hover {
+    color: #b9e9c9;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 440px;
+    background:
+        linear-gradient(rgba(0,55,40,0.75),
+        rgba(0,55,40,0.75)),
+        url('pallickal-panchayat.jpg');
+
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 60px 20px;
+}
+
+.hero-content h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.hero-content p {
+    font-size: 18px;
+    max-width: 750px;
+    margin: auto;
+}
+
+.hero-btn {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 28px;
+    background: #e6b94f;
+    color: #163b2d;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.hero-btn:hover {
+    background: white;
+    transform: translateY(-3px);
+}
+
+/* Common Sections */
+section {
+    padding: 65px 8%;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 30px;
+    color: #075b43;
+    margin-bottom: 30px;
+}
+
+.section-title::after {
+    content: "";
+    display: block;
+    width: 65px;
+    height: 4px;
+    background: #e6b94f;
+    margin: 10px auto;
+}
+
+/* Introduction */
+.intro {
+    background: white;
+    text-align: center;
+}
+
+.intro p {
+    max-width: 950px;
+    margin: auto;
+    font-size: 16px;
+    color: #52665b;
+    text-align: justify;
+}
+
+/* Geography */
+.geography {
+    background: #edf5ef;
+}
+
+.geo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 20px;
+}
+
+.geo-card {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+    transition: 0.3s;
+}
+
+.geo-card:hover {
+    transform: translateY(-5px);
+}
+
+.geo-card h3 {
+    color: #075b43;
+    margin-bottom: 8px;
+    font-size: 17px;
+}
+
+.geo-card p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #4b6656;
+}
+
+.geo-description {
+    margin-top: 30px;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.geo-description h3 {
+    color: #075b43;
+    margin-bottom: 10px;
+}
+
+/* Photo Section */
+.photo-section {
+    background: white;
+    text-align: center;
+}
+
+.photo-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.photo-container img {
+    width: 100%;
+    max-height: 430px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.15);
+}
+
+.photo-container p {
+    margin-top: 12px;
+    color: #607267;
+    font-size: 14px;
+}
+
+/* Interactive Map */
+.map-section {
+    background: #edf5ef;
+}
+
+.map-description {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 25px;
+    color: #52665b;
+}
+
+.map-container {
+    width: 100%;
+    height: 650px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.map-link {
+    display: inline-block;
+    margin-top: 20px;
+    background: #075b43;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.map-link:hover {
+    background: #0b8060;
+}
+
+/* Official Website */
+.official {
+    text-align: center;
+    background: white;
+}
+
+.official p {
+    color: #52665b;
+    margin-bottom: 20px;
+}
+
+.official a {
+    color: white;
+    background: #075b43;
+    padding: 13px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.official a:hover {
+    background: #0b8060;
+}
+
+/* Footer */
+footer {
+    background: #063c30;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+footer h2 {
+    margin-bottom: 15px;
+}
+
+footer p {
+    margin: 7px 0;
+    color: #d7e8df;
+}
+
+footer a {
+    color: #f4d477;
+    text-decoration: none;
+}
+
+.footer-bottom {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #55776b;
+    font-size: 13px;
+}
+
+/* Responsive Design */
+@media(max-width: 768px) {
+    nav {
+        justify-content: center;
+        gap: 15px;
+    }
+
+    nav ul {
+        justify-content: center;
+        gap: 13px;
+    }
+
+    .hero-content h1 {
+        font-size: 30px;
+    }
+
+    .hero-content p {
+        font-size: 15px;
+    }
+
+    section {
+        padding: 45px 5%;
+    }
+
+    .map-container {
+        height: 480px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navigation Bar -->
+<nav>
+    <h2>PALLICKAL GRAMA PANCHAYAT</h2>
+
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#geography">Geography</a></li>
+        <li><a href="#photo">Gallery</a></li>
+        <li><a href="#map">Interactive Map</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- Hero Section -->
+<header class="hero" id="home">
+    <div class="hero-content">
+
+        <h1>PALLICKAL GRAMA PANCHAYAT</h1>
+
+        <p>
+            Welcome to the Interactive WebGIS Platform of
+            Pallickal Grama Panchayat, Pathanamthitta District,
+            Kerala. Explore the geographical features and spatial
+            information of the Panchayat through interactive mapping.
+        </p>
+
+        <a href="#map" class="hero-btn">
+            Explore Interactive Map
+        </a>
+
+    </div>
+</header>
+
+<!-- Introduction -->
+<section class="intro" id="about">
+
+    <h2 class="section-title">About Pallickal Grama Panchayat</h2>
+
+    <p>
+        Pallickal Grama Panchayat is a local self-government
+        institution situated in Pathanamthitta District, Kerala.
+        It plays an important role in rural administration,
+        infrastructure development, public service delivery,
+        and community welfare.
+
+        The Panchayat is part of the Parakode Block Panchayat
+        and Adoor Taluk. It includes the villages of Pallickal
+        and Peringanad.
+
+        The region represents the rural landscape of Kerala,
+        with settlements, agricultural areas, roads, water
+        resources, and other important geographical features.
+
+        This Interactive WebGIS Platform has been developed
+        to provide a spatial view of Pallickal Grama Panchayat.
+        It helps users explore geographical information and
+        understand the spatial distribution of different
+        features within the Panchayat.
+    </p>
+
+</section>
+
+<!-- Geographical Information -->
+<section class="geography" id="geography">
+
+    <h2 class="section-title">Geographical Information</h2>
+
+    <div class="geo-grid">
+
+        <div class="geo-card">
+            <h3>District</h3>
+            <p>Pathanamthitta</p>
+        </div>
+
+        <div class="geo-card">
+            <h3>Taluk</h3>
+            <p>Adoor</p>
+        </div>
+
+        <div class="geo-card">
+            <h3>Block Panchayat</h3>
+            <p>Parakode</p>
+        </div>
+
+        <div class="geo-card">
+            <h3>Geographical Area</h3>
+            <p>45.43 km²</p>
+        </div>
+
+        <div class="geo-card">
+            <h3>Total Population</h3>
+            <p>41,737</p>
+        </div>
+
+        <div class="geo-card">
+            <h3>Total Wards</h3>
+            <p>24</p>
+        </div>
+
+        <div class="geo-card">
+            <h3>Households</h3>
+            <p>11,199</p>
+        </div>
+
+        <div class="geo-card">
+            <h3>Villages</h3>
+            <p>2</p>
+        </div>
+
+    </div>
+
+    <div class="geo-description">
+
+        <h3>Administrative Boundaries and Location</h3>
+
+        <p>
+            Pallickal Grama Panchayat is located in Adoor Taluk
+            of Pathanamthitta District, Kerala. It comes under
+            Parakode Block Panchayat.
+
+            The Panchayat comprises Pallickal and Peringanad
+            villages. Its geographical extent covers approximately
+            45.43 square kilometres.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- Photo Gallery -->
+<section class="photo-section" id="photo">
+
+    <h2 class="section-title">Pallickal Grama Panchayat</h2>
+
+    <div class="photo-container">
+
+        <!-- Replace this image with an authentic
+             photograph of Pallickal Panchayat -->
+
+        <img
+            src="pallickal gramapanchayath.jpeg"
+            alt="Pallickal Grama Panchayat, Pathanamthitta"
+            onerror="this.style.display='none';
+            document.getElementById('photo-message').style.display='block';"
+        >
+
+        <p id="photo-message" style="display:none;">
+            Add an authentic photograph of Pallickal Grama
+            Panchayat as pallickal-panchayat.jpg in the
+            website folder.
+        </p>
+
+        <p>
+            Pallickal Grama Panchayat, Pathanamthitta, Kerala
+        </p>
+
+    </div>
+
+</section>
+
+<!-- Interactive Map -->
+<section class="map-section" id="map">
+
+    <h2 class="section-title">
+        Interactive WebGIS Map
+    </h2>
+
+    <p class="map-description">
+        Explore the geographical information of Pallickal
+        Grama Panchayat using the interactive WebGIS map.
+        The map provides a spatial interface for exploring
+        the Panchayat and its geographical features.
+    </p>
+
+    <div class="map-container">
+
+        <iframe
+            src="https://jyothig2002.github.io/Webgis-pallickal/"
+            title="Pallickal Grama Panchayat Interactive WebGIS Map"
+            loading="lazy"
+            allowfullscreen>
+        </iframe>
+
+    </div>
+
+    <center>
+        <a
+            href="https://jyothig2002.github.io/Webgis-pallickal/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="map-link">
+            Open Map in Full Screen
+        </a>
+    </center>
+
+</section>
+
+<!-- Official Website -->
+<section class="official">
+
+    <h2 class="section-title">
+        Official Panchayat Website
+    </h2>
+
+    <p>
+        Visit the official website of Pallickal Grama Panchayat
+        for administrative information, government services,
+        development activities, and public notices.
+    </p>
+
+    <a
+        href="https://pallickalpanchayatpta.lsgkerala.gov.in/"
+        target="_blank"
+        rel="noopener noreferrer">
+        Visit Official Website
+    </a>
+
+</section>
+
+<!-- Footer / Contact -->
+<footer id="contact">
+
+    <h2>Contact Information</h2>
+
+    <p><strong>Name:</strong> Jyothi G</p>
+
+    <p>
+        <strong>Email:</strong>
+        <a href="mailto:jyothinandhu50@gmail.com">
+            jyothinandhu50@gmail.com
+        </a>
+    </p>
+
+    <p>
+        Interactive WebGIS Platform of
+        Pallickal Grama Panchayat
+    </p>
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 Pallickal Grama Panchayat
+            | Interactive WebGIS Platform
+        </p>
+
+        <p>Designed and Developed by Jyothi G</p>
+
+    </div>
+
+</footer>
+
+</body>
+</html>
